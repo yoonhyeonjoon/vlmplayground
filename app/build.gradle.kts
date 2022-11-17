@@ -15,7 +15,7 @@ android {
         versionName = "0.0.3" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
         // Custom test runner to set up Hilt dependency graph
-//        testInstrumentationRunner = "com.google.samples.apps.nowinandroid.core.testing.NiaTestRunner"
+//        testInstrumentationRunner = "vlmplayground.android.core.testing.NiaTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -62,23 +62,25 @@ android {
 }
 
 dependencies {
-//    include(":feature:rounge")
-//    include(":feature:chatroom")
-//    include(":feature:settings")
 
-//    implementation(project(":core:common"))
+    implementation(project(":feature:rounge"))
+    implementation(project(":feature:chatroom"))
+    implementation(project(":feature:settings"))
+
+    implementation(project(":core:common"))
 //    implementation(project(":core:ui"))
 //    implementation(project(":core:designsystem"))
 //    implementation(project(":core:data"))
-//    implementation(project(":core:model"))
+    implementation(project(":core:model"))
 
 //    implementation(project(":sync:work"))
 
-//    androidTestImplementation(project(":core:testing"))
-//    androidTestImplementation(project(":core:datastore-test"))
-//    androidTestImplementation(project(":core:data-test"))
+    androidTestImplementation(project(":core:testing"))
+    androidTestImplementation(project(":core:datastore-test"))
+    androidTestImplementation(project(":core:data-test"))
     androidTestImplementation(project(":core:network"))
     androidTestImplementation(libs.androidx.navigation.testing)
+    androidTestImplementation(kotlin("test"))
     debugImplementation(libs.androidx.compose.ui.testManifest)
 
     implementation(libs.accompanist.systemuicontroller)
