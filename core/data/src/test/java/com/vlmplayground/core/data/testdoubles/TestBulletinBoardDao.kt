@@ -36,22 +36,22 @@ class TestBulletinBoardDao : BulletinBoardDao{
 
 
     override suspend fun deleteAllEntityStream() {
-
         entitiesStateFlow.update { entities ->
             entities.take(0)
         }
     }
 
-    internal var bulletinEntitiesReferences: List<NewsResourceTopicCrossRef> = listOf()
-    override suspend fun insertOrIgnoreBulletin(bulletinEntities: List<BulletinEntity>): List<Long> {
-
+    override suspend fun insertOrIgnoreBulletin(bulletinEntities: List<BulletinEntity>) : List<String> {
+        entitiesStateFlow.value = bulletinEntities
+        return bulletinEntities.map { it.wid }
     }
 
     override suspend fun updateBulletin(entities: List<BulletinEntity>) {
-        TODO("Not yet implemented")
+        throw NotImplementedError("Unused in tests")
     }
 
     override suspend fun upsertBulletin(entities: List<BulletinEntity>) {
-        TODO("Not yet implemented")
+        entitiesStateFlow.value = entities
     }
+
 }
