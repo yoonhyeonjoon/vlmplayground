@@ -16,13 +16,11 @@ import javax.inject.Inject
 class FirebaseNetwork @Inject constructor(private val firebase : FirebaseFirestore)
     : VlmPlaygroundDataSource {
 
-
     override suspend fun getBulletin(): Flow<NetworkBulletin> = callbackFlow {
 
             var eventsCollection: CollectionReference? = null
             try {
-                eventsCollection = firebase
-                    .collection("bulletinBoard")
+                eventsCollection = firebase.collection("bulletinBoard")
             } catch (e: Throwable) {
                 // If Firebase cannot be initialized, close the stream of data
                 // flow consumers will stop collecting and the coroutine will resume

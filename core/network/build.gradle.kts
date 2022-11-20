@@ -28,6 +28,15 @@ android {
     buildFeatures {
         buildConfig = true
     }
+
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
+    defaultConfig {
+//        testInstrumentationRunner = "com.vlmplayground.core.testing.VlmTestRunner"
+        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+    }
+
     namespace = "com.vlmplayground.core.network"
 }
 
@@ -51,5 +60,18 @@ dependencies {
 
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore)
+
+    androidTestImplementation("com.android.support.test:runner:1.0.2")
+    androidTestImplementation("com.android.support.test:rules:1.0.2")
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:3.0.2")
+
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("androidx.test:core:1.5.0")
+    testImplementation("org.mockito:mockito-core:3.4.6")
+    androidTestImplementation("org.mockito:mockito-android:2.24.5")
+
+
+    androidTestImplementation(libs.androidx.work.testing)
+
 
 }

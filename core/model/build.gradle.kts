@@ -10,6 +10,11 @@ plugins {
 //    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
+
+android {
+    namespace = "com.vlmplayground.android.core.model"
+}
+
 dependencies {
     implementation(libs.kotlinx.datetime)
 

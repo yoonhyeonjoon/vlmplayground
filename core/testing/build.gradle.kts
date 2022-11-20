@@ -7,7 +7,19 @@ plugins {
 
 android {
     namespace = "com.vlmplayground.android.core.testing"
+
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
+
+    defaultConfig {
+//        testInstrumentationRunner = "com.vlmplayground.core.testing.VlmTestRunner"
+        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+    }
+
 }
+
+
 
 dependencies {
     implementation(project(":core:common"))

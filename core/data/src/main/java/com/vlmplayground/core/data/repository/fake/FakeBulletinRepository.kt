@@ -7,5 +7,6 @@ import javax.inject.Inject
 
 class FakeBulletinRepository @Inject constructor(
     @Dispatcher(PlaygroundDispatchers.IO) private val isDispatcher: CoroutineDispatcher
-){
+)
+{
 }
