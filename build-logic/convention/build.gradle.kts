@@ -73,5 +73,10 @@ gradlePlugin {
             id = "vlmplayground.firebase-perf"
             implementationClass = "FirebasePerfConventionPlugin"
         }
+
+        register("firebase") {
+            id = "vlmplayground.firebase"
+            implementationClass = "FirebasePlugin"
+        }
     }
 }

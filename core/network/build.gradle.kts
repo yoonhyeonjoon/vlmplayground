@@ -20,6 +20,8 @@ plugins {
     id("vlmplayground.android.hilt")
     id("kotlinx-serialization")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+//    id("vlmplayground.firebase")
+
 }
 
 android {
@@ -46,4 +48,8 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore)
+
 }

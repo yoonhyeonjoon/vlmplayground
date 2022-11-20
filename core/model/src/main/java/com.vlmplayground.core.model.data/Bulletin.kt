@@ -1,6 +1,5 @@
 package com.vlmplayground.core.model.data
 
-
 data class Bulletin(
     val wid: String, //date+author
     val title: String,

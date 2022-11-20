@@ -22,12 +22,13 @@ import androidx.room.PrimaryKey
 import com.vlmplayground.core.model.data.Bulletin
 
 
+
 @Entity(
     tableName = "bulletinboard",
 )
 data class BulletinEntity(
     @PrimaryKey
-    val wid: String, //date+author
+    val id: String,
     @ColumnInfo(defaultValue = "")
     val title: String,
     @ColumnInfo(defaultValue = "")
@@ -39,7 +40,7 @@ data class BulletinEntity(
 )
 
 fun BulletinEntity.asExternalModel() = Bulletin(
-    wid = wid,
+    wid = id,
     title   = title,
     text    = text,
     imageUrl    = imageUrl,

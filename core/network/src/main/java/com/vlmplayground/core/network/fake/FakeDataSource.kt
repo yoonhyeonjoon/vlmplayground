@@ -1,4 +1,4 @@
-package fake
+package com.vlmplayground.core.network.fake
 
 import org.intellij.lang.annotations.Language
 

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "454207144955",
+    "project_id": "vlmplayground",
+    "storage_bucket": "vlmplayground.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:454207144955:android:d6bc67633c4a0a7109815e",
+        "android_client_info": {
+          "package_name": "com.vlmplayground.core.network"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "454207144955-s2cst83scbc4usd0onqc2hed2gsfvn8v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfkTxkXey2aF38u-5C76_qQGQAWfCaGo8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "454207144955-s2cst83scbc4usd0onqc2hed2gsfvn8v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

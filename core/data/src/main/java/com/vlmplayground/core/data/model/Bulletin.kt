@@ -5,9 +5,9 @@ import com.vlmplayground.core.database.model.BulletinEntity
 import com.vlmplayground.core.model.data.Bulletin
 
 fun Bulletin.asEntity() = BulletinEntity(
-    wid = wid,
+    id = wid,
     title   = title,
     text    = text,
-    imageUrl    = imageUrl,
+    imageUrl = imageUrl,
     author  = author,
 )
