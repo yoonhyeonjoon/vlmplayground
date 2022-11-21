@@ -5,9 +5,11 @@ import com.vlmplayground.core.database.model.BulletinEntity
 import com.vlmplayground.core.model.data.Bulletin
 
 fun Bulletin.asEntity() = BulletinEntity(
-    id = wid,
-    title   = title,
-    text    = text,
-    imageUrl = imageUrl,
-    author  = author,
+    fid = fid,
+    images = images.reduce{ s: String, s1: String -> "$s,$s1" },
+    date = date,
+    score = score.toString(),
+    name = name,
+    text = text,
+    title = title,
 )

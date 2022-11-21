@@ -20,29 +20,37 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.vlmplayground.core.model.data.Bulletin
-
+import java.util.*
 
 
 @Entity(
     tableName = "bulletinboard",
 )
 data class BulletinEntity(
-    @PrimaryKey
-    val id: String,
+    @PrimaryKey(autoGenerate = true)
+    val id: Long? = 0,
     @ColumnInfo(defaultValue = "")
-    val title: String,
+    val fid: String,
     @ColumnInfo(defaultValue = "")
-    val text: String,
-    @ColumnInfo(name = "image_url")
-    val imageUrl: String,
+    val images: String, //["images/125.jpg","images/248.jpg","images/224.jpg","images/038.jpg"] 의 형태로 저장
     @ColumnInfo(defaultValue = "")
-    val author: String
+    val score: String,
+    val date: Date,
+    @ColumnInfo(defaultValue = "")
+    val name : String,
+    @ColumnInfo(defaultValue = "")
+    val text : String,
+    @ColumnInfo(defaultValue = "")
+    val title : String
 )
 
+
 fun BulletinEntity.asExternalModel() = Bulletin(
-    wid = id,
-    title   = title,
-    text    = text,
-    imageUrl    = imageUrl,
-    author  = author,
+    fid = fid,
+    images = images.split(","),
+    date = date,
+    score = score.toLong(),
+    name = name,
+    text = text,
+    title = title,
 )
