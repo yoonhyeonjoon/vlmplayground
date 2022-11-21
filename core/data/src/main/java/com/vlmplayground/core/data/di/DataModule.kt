@@ -12,7 +12,7 @@ import dagger.hilt.components.SingletonComponent
 interface DataModule {
     @Binds
     fun bindsBulletinRepository(
-        topicsRepository: OfflineFirstBulletinRepository
+        bulletinRepository: OfflineFirstBulletinRepository
     ): BulletinRepository
 }
 

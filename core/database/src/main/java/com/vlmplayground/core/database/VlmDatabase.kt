@@ -46,5 +46,5 @@ import com.vlmplayground.core.database.util.InstantConverter
     InstantConverter::class,
 )
 abstract class VlmDatabase : RoomDatabase() {
-    abstract fun topicDao(): BulletinBoardDao
+    abstract fun bulletinDao(): BulletinBoardDao
 }

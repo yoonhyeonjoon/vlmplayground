@@ -6,6 +6,8 @@ plugins {
     id("vlmplayground.android.hilt")
     id("jacoco")
     id("vlmplayground.firebase-perf")
+
+
 }
 
 android {
@@ -63,9 +65,10 @@ android {
 
 dependencies {
 
-    implementation(project(":feature:rounge"))
-    implementation(project(":feature:chatroom"))
-    implementation(project(":feature:settings"))
+    implementation(project(":feature:bulletin"))
+//    implementation(project(":feature:rounge"))
+//    implementation(project(":feature:chatroom"))
+//    implementation(project(":feature:settings"))
 
     implementation(project(":core:common"))
 //    implementation(project(":core:ui"))

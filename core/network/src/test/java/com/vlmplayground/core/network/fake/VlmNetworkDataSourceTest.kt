@@ -7,14 +7,13 @@ import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.vlmplayground.core.network.firebase.FirebaseNetwork
+import com.vlmplayground.core.network.firebase.FirebaseNetworkDataSource
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 import java.util.concurrent.CountDownLatch
 
@@ -28,7 +27,7 @@ class VlmNetworkDataSourceTest {
 //    @Rule
 //    var firebaseAppRule: FirebaseAppRule = FirebaseAppRule()
 
-    private lateinit var network: FirebaseNetwork
+    private lateinit var network: FirebaseNetworkDataSource
 
     @Mock
     private lateinit var  firebaseFirestore : FirebaseFirestore
@@ -37,7 +36,6 @@ class VlmNetworkDataSourceTest {
 
     @Before
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
         instrumentationContext = InstrumentationRegistry.getInstrumentation().context
 //        FirebaseApp.initializeApp(appContext)
 //        subject = FirebaseNetwork(firebaseFirestore)

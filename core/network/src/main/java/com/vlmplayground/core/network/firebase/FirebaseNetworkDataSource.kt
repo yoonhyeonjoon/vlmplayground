@@ -1,6 +1,5 @@
 package com.vlmplayground.core.network.firebase
 
-import android.util.Log
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
@@ -13,10 +12,10 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class FirebaseNetwork @Inject constructor(private val firebase : FirebaseFirestore)
+class FirebaseNetworkDataSource @Inject constructor(private val firebase : FirebaseFirestore)
     : VlmPlaygroundDataSource {
 
-    override suspend fun getBulletin(): Flow<NetworkBulletin> = callbackFlow {
+    override fun getBulletin(): Flow<NetworkBulletin> = callbackFlow {
 
             var eventsCollection: CollectionReference? = null
             try {

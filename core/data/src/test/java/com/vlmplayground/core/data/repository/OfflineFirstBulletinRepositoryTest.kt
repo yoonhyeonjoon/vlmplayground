@@ -4,8 +4,6 @@ import com.vlmplayground.core.data.testdoubles.TestBulletinBoardDao
 import com.vlmplayground.core.database.dao.BulletinBoardDao
 import com.vlmplayground.core.database.model.BulletinEntity
 import com.vlmplayground.core.database.model.asExternalModel
-import com.vlmplayground.core.network.firebase.FirebaseNetwork
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert

@@ -5,27 +5,29 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.vlmplayground.core.feature.bulletin.BulletinViewModel
+import com.vlmplayground.core.model.data.Bulletin
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
+//@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-//    /**
-//     * Lazily inject [JankStats], which is used to track jank throughout the app.
-//     */
-//    @Inject
-//    lateinit var lazyStats: dagger.Lazy<JankStats>
-//
-//    @Inject
-//    lateinit var networkMonitor: NetworkMonitor
-//
-//    val viewModel: MainActivityViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val splashScreen = installSplashScreen()
+//        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
 
 //        var uiState: MainActivityUiState by mutableStateOf(Loading)
@@ -56,6 +58,8 @@ class MainActivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
+            BulletinCompose()
+
 //            val systemUiController = rememberSystemUiController()
 //            val darkTheme = shouldUseDarkTheme(uiState)
 //
@@ -86,6 +90,24 @@ class MainActivity : ComponentActivity() {
 //        super.onPause()
 //        lazyStats.get().isTrackingEnabled = false
 //    }
+}
+
+@OptIn(ExperimentalLifecycleComposeApi::class)
+@Composable
+fun BulletinCompose(
+    modifier: Modifier = Modifier,
+    viewModel: BulletinViewModel = hiltViewModel()
+) {
+    val bulletinState: Flow<Bulletin> = viewModel.getState
+    val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(true){
+        bulletinState.collect{ list ->
+            println("printed by bulletin : $list")
+//            list.forEach{println("printed by bulletin : $it")}
+        }
+    }
+
 }
 
 ///**

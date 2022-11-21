@@ -7,9 +7,9 @@ buildscript {
         maven { url = uri("../nowinandroid-prebuilts/m2repository") }
     }
 
-//    dependencies{
-//        classpath("com.google.gms:google-services:4.3.14")
-//    }
+    dependencies{
+        classpath("com.google.gms:google-services:4.3.14")
+    }
 
 }
 

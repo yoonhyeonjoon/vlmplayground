@@ -1,25 +1,14 @@
 package com.vlmplayground.core.network
 
-import android.content.Context
 import android.support.test.InstrumentationRegistry
-import android.support.test.espresso.matcher.ViewMatchers.assertThat
 import com.google.firebase.FirebaseApp
-import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.vlmplayground.core.network.firebase.FirebaseNetwork
-import org.junit.Assert
-import org.junit.Before
 import org.junit.Test
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
-import java.util.concurrent.CountDownLatch
 
 
 class VlmNetworkDataSourceTestAndroid {
-
 //    private lateinit var subject: FirebaseNetwork
 //
 
@@ -45,9 +34,12 @@ class VlmNetworkDataSourceTestAndroid {
     @Test
     fun testFirebaseRead() {
         org.junit.Assert.assertEquals(true, true)
-//        val instrumentationContext = InstrumentationRegistry.getInstrumentation().context
-//        FirebaseApp.initializeApp(instrumentationContext)
-//        val db = Firebase.firestore
+        val instrumentationContext = InstrumentationRegistry.getInstrumentation().context
+        val gg: FirebaseApp = FirebaseApp.initializeApp(instrumentationContext)!!
+        val db = Firebase.firestore
+        val firebaseFirestore = FirebaseFirestore.getInstance()
+        val ff = 1
+//
 //        val latch = CountDownLatch(1)
 //
 //        db.collection("bulletinBoard").addSnapshotListener { snapshot, _ ->

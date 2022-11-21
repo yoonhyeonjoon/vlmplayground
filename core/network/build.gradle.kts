@@ -20,8 +20,8 @@ plugins {
     id("vlmplayground.android.hilt")
     id("kotlinx-serialization")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
-//    id("vlmplayground.firebase")
 
+    id("com.google.gms.google-services")
 }
 
 android {
