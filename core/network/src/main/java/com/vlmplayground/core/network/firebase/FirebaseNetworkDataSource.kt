@@ -17,8 +17,7 @@ class FirebaseNetworkDataSource @Inject constructor(private val firebase : Fireb
     : VlmPlaygroundDataSource {
 
     //collectionRef.where("startTime", ">=", "1506816000").where("startTime", "<=", "1507593600")
-    override fun getBulletinByTimestamp(movePoint: Long): Flow<NetworkBulletin> = callbackFlow {
-
+    override fun getBulletinByTimestamp(movePoint: Long): Flow<List<NetworkBulletin>> = callbackFlow {
             var eventsCollection: CollectionReference? = null
             try {
                 eventsCollection = firebase.collection("bulletinBoard")
@@ -28,19 +27,23 @@ class FirebaseNetworkDataSource @Inject constructor(private val firebase : Fireb
                 close(e)
             }
 
+        //통으로 불러다가 하나 씩 던지는 메소드
             val subscription = eventsCollection?.whereGreaterThan("date", Date(Date().time - movePoint))?.addSnapshotListener { snapshot, _ ->
                 if (snapshot == null) { return@addSnapshotListener }
                 try
                 {
+                    val bulletinList = mutableListOf<NetworkBulletin>()
                     for (i in snapshot.documentChanges) {
                         if (i.type == DocumentChange.Type.ADDED || i.type == DocumentChange.Type.MODIFIED || i.type == DocumentChange.Type.REMOVED) {
-                            trySend(i.document.toObject(NetworkBulletin::class.java)).isSuccess
+                            bulletinList.add(i.document.toObject(NetworkBulletin::class.java))
                         }
+                        trySend(bulletinList.toList()).isSuccess
+                        bulletinList.clear()
                     }
                 }
                 catch (e: Throwable)
                 {
-                    val a = 0
+                    println(e.toString())
                 }
             }
             awaitClose {

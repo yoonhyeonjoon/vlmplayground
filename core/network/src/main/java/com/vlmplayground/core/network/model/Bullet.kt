@@ -1,8 +1,6 @@
 package com.vlmplayground.core.network.model
 
-import com.google.firebase.Timestamp
 import com.vlmplayground.core.model.data.Bulletin
-import kotlinx.serialization.Serializable
 import java.util.*
 
 
@@ -16,7 +14,7 @@ data class NetworkBulletin(
     var title: String = ""
 )
 
-fun NetworkBulletin.asExternalModel() = Bulletin(
+fun NetworkBulletin.asDataModel() = Bulletin(
      fid= fid,
      images= images,
      date = date,
@@ -25,3 +23,5 @@ fun NetworkBulletin.asExternalModel() = Bulletin(
      text = text,
      title = title
 )
+
+

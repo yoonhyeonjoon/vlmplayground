@@ -1,30 +1,33 @@
 package com.vlmplayground.core.data.repository
 
+import com.vlmplayground.core.data.model.asEntity
+import com.vlmplayground.core.data.util.suspendRunCatching
 import com.vlmplayground.core.database.dao.BulletinBoardDao
-import com.vlmplayground.core.model.data.Bulletin
 import com.vlmplayground.core.network.firebase.FirebaseNetworkDataSource
-import com.vlmplayground.core.network.model.asExternalModel
-import kotlinx.coroutines.flow.Flow
+import com.vlmplayground.core.network.model.asDataModel
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
+
+
 
 class OfflineFirstBulletinRepository @Inject constructor(
     private val bulletinBoardDao: BulletinBoardDao,
     private val firebaseNetworkDataSource : FirebaseNetworkDataSource,
 ) : BulletinRepository {
-    override fun getBulletinStream(): Flow<List<Bulletin>> {
-        TODO("Not yet implemented")
+
+    override fun syncBulletinBoard()
+    {
+        firebaseNetworkDataSource.getBulletinByTimestamp(movePoint = 432000_000).map { bulletinList ->
+            //newly data to Room
+            bulletinBoardDao.upsertBulletin(entities = bulletinList.map{ networkBulletin ->
+                networkBulletin.asDataModel().asEntity()
+            })
+        }
     }
 
-    override fun getaBulletinStream(): Flow<Bulletin> =
-
-        firebaseNetworkDataSource.getBulletinByTimestamp(movePoint = 432000_000).map {
-            it.asExternalModel()
-
-        }
 
 
-    //    override fun getBulletinStream(): Flow<List<Bulletin>> =
+//    override fun getBulletinStream(): Flow<List<Bulletin>> =
 //
 ////        bulletinBoardDao.getAllEntityStream().map { it.map(BulletinEntity::asExternalModel) }
 //    firebaseNetworkDataSource.getBulletin().map { it.asExternalModel() }

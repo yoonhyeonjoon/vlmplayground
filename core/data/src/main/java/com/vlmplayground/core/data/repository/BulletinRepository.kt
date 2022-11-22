@@ -20,6 +20,5 @@ import com.vlmplayground.core.model.data.Bulletin
 import kotlinx.coroutines.flow.Flow
 
 interface BulletinRepository /*: Syncable*/ {
-    fun getBulletinStream(): Flow<List<Bulletin>>
-    fun getaBulletinStream(): Flow<Bulletin>
+    fun syncBulletinBoard()
 }

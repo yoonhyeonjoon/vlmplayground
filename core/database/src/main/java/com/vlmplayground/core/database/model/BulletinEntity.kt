@@ -45,7 +45,7 @@ data class BulletinEntity(
 )
 
 
-fun BulletinEntity.asExternalModel() = Bulletin(
+fun BulletinEntity.asDataModel() = Bulletin(
     fid = fid,
     images = images.split(","),
     date = date,

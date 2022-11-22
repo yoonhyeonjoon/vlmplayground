@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 plugins {
-    id("vlmplayground.android.library")
+    id("vlmplayground.android.feature")
+    id("vlmplayground.android.library.compose")
     id("vlmplayground.android.library.jacoco")
-    id("vlmplayground.android.hilt")
-    id("kotlinx-serialization")
+//    id("vlmplayground.android.hilt")
+//    id("kotlinx-serialization")
 }
 
 android {

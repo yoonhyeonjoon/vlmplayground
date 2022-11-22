@@ -98,14 +98,15 @@ fun BulletinCompose(
     modifier: Modifier = Modifier,
     viewModel: BulletinViewModel = hiltViewModel()
 ) {
-    val bulletinState: Flow<Bulletin> = viewModel.getState
+    val bulletinState = viewModel.streamisOk
     val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(true){
-        bulletinState.collect{ list ->
-            println("printed by bulletin : $list")
-//            list.forEach{println("printed by bulletin : $it")}
-        }
+//        viewModel.bulletinBoardInitializing()
+//        bulletinState.collect{ list ->
+//            println("printed by bulletin : $list")
+////            list.forEach{println("printed by bulletin : $it")}
+//        }
     }
 
 }
