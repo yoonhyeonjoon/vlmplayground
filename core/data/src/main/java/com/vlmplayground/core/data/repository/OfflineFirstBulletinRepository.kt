@@ -1,14 +1,11 @@
 package com.vlmplayground.core.data.repository
 
 import com.vlmplayground.core.database.dao.BulletinBoardDao
-import com.vlmplayground.core.database.model.BulletinEntity
-import com.vlmplayground.core.database.model.asExternalModel
 import com.vlmplayground.core.model.data.Bulletin
 import com.vlmplayground.core.network.firebase.FirebaseNetworkDataSource
 import com.vlmplayground.core.network.model.asExternalModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class OfflineFirstBulletinRepository @Inject constructor(
@@ -20,7 +17,11 @@ class OfflineFirstBulletinRepository @Inject constructor(
     }
 
     override fun getaBulletinStream(): Flow<Bulletin> =
-        firebaseNetworkDataSource.getBulletin().map { it.asExternalModel() }
+
+        firebaseNetworkDataSource.getBulletinByTimestamp(movePoint = 432000_000).map {
+            it.asExternalModel()
+
+        }
 
 
     //    override fun getBulletinStream(): Flow<List<Bulletin>> =

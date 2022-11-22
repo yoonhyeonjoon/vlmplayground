@@ -6,7 +6,6 @@ import kotlinx.serialization.Serializable
 import java.util.*
 
 
-//@Serializable
 data class NetworkBulletin(
     var fid: String = "",
     var images: List<String> = listOf<String>(),
@@ -24,4 +23,5 @@ fun NetworkBulletin.asExternalModel() = Bulletin(
      score= score,
      name = name,
      text = text,
-     title = title)
+     title = title
+)
