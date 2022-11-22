@@ -6,6 +6,7 @@ import com.vlmplayground.core.data.repository.BulletinRepository
 import com.vlmplayground.core.domain.bulletinboard.GetBulletinUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,12 +16,10 @@ class BulletinViewModel @Inject constructor(
     private val getBulletinStream : GetBulletinUseCase
 ) : ViewModel() {
 
-    val streamisOk = getBulletinStream()
-//    fun bulletinBoardInitializing() {
-//        viewModelScope.launch {
-//            val streamisOk = getBulletinStream()
-//
-//        }
-//    }
+    fun bulletinBoardInitializing() {
+        viewModelScope.launch {
+            getBulletinStream().collect()
+        }
+    }
 
 }

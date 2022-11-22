@@ -18,28 +18,28 @@ class FirebaseNetworkDataSource @Inject constructor(private val firebase : Fireb
 
     //collectionRef.where("startTime", ">=", "1506816000").where("startTime", "<=", "1507593600")
     override fun getBulletinByTimestamp(movePoint: Long): Flow<List<NetworkBulletin>> = callbackFlow {
-            var eventsCollection: CollectionReference? = null
-            try {
-                eventsCollection = firebase.collection("bulletinBoard")
-            } catch (e: Throwable) {
-                // If Firebase cannot be initialized, close the stream of data
-                // flow consumers will stop collecting and the coroutine will resume
-                close(e)
-            }
+        var eventsCollection: CollectionReference? = null
+        try {
+            eventsCollection = firebase.collection("bulletinBoard")
+        } catch (e: Throwable) {
+            // If Firebase cannot be initialized, close the stream of data
+            // flow consumers will stop collecting and the coroutine will resume
+            close(e)
+        }
 
-        //통으로 불러다가 하나 씩 던지는 메소드
-            val subscription = eventsCollection?.whereGreaterThan("date", Date(Date().time - movePoint))?.addSnapshotListener { snapshot, _ ->
+        val subscription = eventsCollection
+            ?.whereGreaterThan("date", Date(Date().time - movePoint))
+            ?.addSnapshotListener { snapshot, _ ->
                 if (snapshot == null) { return@addSnapshotListener }
-                try
-                {
+                try {
                     val bulletinList = mutableListOf<NetworkBulletin>()
                     for (i in snapshot.documentChanges) {
                         if (i.type == DocumentChange.Type.ADDED || i.type == DocumentChange.Type.MODIFIED || i.type == DocumentChange.Type.REMOVED) {
                             bulletinList.add(i.document.toObject(NetworkBulletin::class.java))
                         }
-                        trySend(bulletinList.toList()).isSuccess
-                        bulletinList.clear()
                     }
+                    trySend(bulletinList.toList()).isSuccess
+                    bulletinList.clear()
                 }
                 catch (e: Throwable)
                 {
@@ -49,8 +49,7 @@ class FirebaseNetworkDataSource @Inject constructor(private val firebase : Fireb
             awaitClose {
                 subscription?.remove()
             }
-
-    }.flowOn(Dispatchers.IO)
+    }
 
 
 //    override fun getBulletinByTimestamp(currentPoint: Date): Flow<NetworkBulletin>  = callbackFlow {

@@ -27,8 +27,9 @@ import java.util.*
     tableName = "bulletinboard",
 )
 data class BulletinEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long? = 0,
+//    @PrimaryKey(autoGenerate = true)
+//    val id: Long? = 0,
+    @PrimaryKey
     @ColumnInfo(defaultValue = "")
     val fid: String,
     @ColumnInfo(defaultValue = "")

@@ -4,20 +4,13 @@ package com.vlm.vlmplayground
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vlmplayground.core.feature.bulletin.BulletinViewModel
-import com.vlmplayground.core.model.data.Bulletin
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 //@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @OptIn(ExperimentalLifecycleComposeApi::class)
@@ -98,16 +91,17 @@ fun BulletinCompose(
     modifier: Modifier = Modifier,
     viewModel: BulletinViewModel = hiltViewModel()
 ) {
-    val bulletinState = viewModel.streamisOk
-    val coroutineScope = rememberCoroutineScope()
+//    val bulletinState = viewModel.streamisOk
+//    val coroutineScope = rememberCoroutineScope()
 
-    LaunchedEffect(true){
+//    LaunchedEffect(true){
+    viewModel.bulletinBoardInitializing()
 //        viewModel.bulletinBoardInitializing()
 //        bulletinState.collect{ list ->
 //            println("printed by bulletin : $list")
 ////            list.forEach{println("printed by bulletin : $it")}
 //        }
-    }
+//    }
 
 }
 
