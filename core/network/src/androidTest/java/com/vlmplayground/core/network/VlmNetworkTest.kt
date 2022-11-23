@@ -6,11 +6,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.vlmplayground.core.network.firebase.FirebaseNetworkDataSource
 import com.vlmplayground.core.network.model.NetworkBulletin
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.test.runTest
 import okhttp3.internal.wait
@@ -40,45 +37,21 @@ class VlmNetworkTest {
         val dataSource = FirebaseNetworkDataSource(Firebase.firestore)
         var getResult = listOf<NetworkBulletin>()
 
-        val ff = async {
-            delay(5000L)
-            val hhh = 1
+        runBlocking {
+
+            val dataSourceJob: Job =
+                launch {  dataSource.getBulletinByTimestamp(0).collect {
+                        getResult = it
+                    }
+                }
+            launch {
+                delay(5000L)
+                dataSourceJob.cancel()
+            }
         }
 
-        dataSource.getBulletinByTimestamp(0).collect {
-            getResult = it
-            return@collect
-        }
-
-
-
-        ff.start()
-
-
-//        dataSourceJob.join()
-//        val ff = 1
 
     }
 
-//
-//    @Test
-//    fun testFirebaseRead() = runTest {
-//        val instrumentationContext = InstrumentationRegistry.getTargetContext()
-////        val firebaseApp: FirebaseApp = FirebaseApp.initializeApp(instrumentationContext)!!
-//        val dataSource = FirebaseNetworkDataSource(Firebase.firestore)
-//        dataSource.getBulletinByTimestamp().collect{ result ->
-//            val ff = 1
-//
-//        }
-//        Firebase.firestore.collection("bulletinBoard").get().addOnSuccessListener {
-//            it.documents
-//        }
-//
-//        launch{ //to hold the process, set limit of timeout as below mili-seconds.
-//            delay(10000)
-//        }
-//    }
-
-    //TestBulletinBoardDao
 
 }

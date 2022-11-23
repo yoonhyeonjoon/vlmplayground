@@ -4,12 +4,11 @@ import com.vlmplayground.core.database.dao.BulletinBoardDao
 import com.vlmplayground.core.database.model.BulletinEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
 import java.util.*
 
 class TestBulletinBoardDao : BulletinBoardDao{
 
-    private var entitiesStateFlow: MutableStateFlow<List<BulletinEntity>> = MutableStateFlow(
+    var entitiesStateFlow: MutableStateFlow<List<BulletinEntity>> = MutableStateFlow(
         listOf(
             BulletinEntity(
                 fid = "o1jvdZWEqieil6M3rDwn",
