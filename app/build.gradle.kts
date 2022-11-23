@@ -80,7 +80,7 @@ dependencies {
 
     androidTestImplementation(project(":core:testing"))
     androidTestImplementation(project(":core:datastore-test"))
-    androidTestImplementation(project(":core:data-test"))
+//    androidTestImplementation(project(":core:data-test"))
     androidTestImplementation(project(":core:network"))
     androidTestImplementation(libs.androidx.navigation.testing)
     androidTestImplementation(kotlin("test"))

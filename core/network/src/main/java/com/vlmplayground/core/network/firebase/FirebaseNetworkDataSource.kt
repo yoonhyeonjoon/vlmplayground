@@ -19,9 +19,12 @@ class FirebaseNetworkDataSource @Inject constructor(private val firebase : Fireb
     //collectionRef.where("startTime", ">=", "1506816000").where("startTime", "<=", "1507593600")
     override fun getBulletinByTimestamp(movePoint: Long): Flow<List<NetworkBulletin>> = callbackFlow {
         var eventsCollection: CollectionReference? = null
-        try {
+        try
+        {
             eventsCollection = firebase.collection("bulletinBoard")
-        } catch (e: Throwable) {
+        }
+        catch (e: Throwable)
+        {
             // If Firebase cannot be initialized, close the stream of data
             // flow consumers will stop collecting and the coroutine will resume
             close(e)

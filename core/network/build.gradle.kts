@@ -33,8 +33,7 @@ android {
         unitTests.isReturnDefaultValues = true
     }
     defaultConfig {
-//        testInstrumentationRunner = "com.vlmplayground.core.testing.VlmTestRunner"
-        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.vlmplayground.core.network.CustomTestRunner"
     }
 
     namespace = "com.vlmplayground.core.network"
@@ -71,8 +70,17 @@ dependencies {
     androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
     androidTestImplementation("org.mockito:mockito-android:2.24.5")
 
-
     androidTestImplementation(libs.androidx.work.testing)
+
+//    //For hiltTest
+//    testImplementation(libs.hilt.android.testing) // For Robolectric tests.
+//    kaptTest(libs.hilt.android.compiler) // ...with Kotlin.
+//    testAnnotationProcessor(libs.hilt.android.compiler) // ...with Java.
+//    androidTestImplementation(libs.hilt.android.testing) // For instrumented tests.
+//    kaptAndroidTest(libs.hilt.android.testing) // ...with Kotlin.
+//    androidTestAnnotationProcessor(libs.hilt.android.testing) // ...with Java.
+
+
 
 
 }
