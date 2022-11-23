@@ -86,7 +86,7 @@ class FirebaseNetworkDataSource @Inject constructor(private val firebase : Fireb
         TODO("Not yet implemented")
     }
 
-    override fun insertOrIgnoreBulletin(topicEntities: NetworkBulletin): Long {
+    override fun insertOrIgnoreBulletin(entities: NetworkBulletin): Long {
         TODO("Not yet implemented")
     }
 }

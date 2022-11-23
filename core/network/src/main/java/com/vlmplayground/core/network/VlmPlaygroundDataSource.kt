@@ -2,7 +2,6 @@ package com.vlmplayground.core.network
 
 import com.vlmplayground.core.network.model.NetworkBulletin
 import kotlinx.coroutines.flow.Flow
-import java.util.*
 
 interface VlmPlaygroundDataSource {
 
@@ -14,7 +13,7 @@ interface VlmPlaygroundDataSource {
 
     fun deleteBulletin(fid : String)
 
-    fun insertOrIgnoreBulletin(topicEntities: NetworkBulletin): Long
+    fun insertOrIgnoreBulletin(entities: NetworkBulletin): Long
 
 
 }
