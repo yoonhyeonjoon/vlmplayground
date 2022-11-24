@@ -1,14 +1,14 @@
 package com.vlmplayground.core.domain.bulletinboard
 
 import com.vlmplayground.core.data.repository.BulletinRepository
-import kotlinx.coroutines.flow.Flow
+import com.vlmplayground.core.model.data.Bulletin
 import javax.inject.Inject
 
-class GetBulletinUseCase
+class UploadBulletinUseCase
 @Inject
 constructor(
     private val bulletinRepository : BulletinRepository
 )
 {
-    operator fun invoke() = bulletinRepository.syncBulletinBoard()
+    operator fun invoke(newBulletin : Bulletin) = bulletinRepository.uploadToBulletinBoard(newBulletin)
 }

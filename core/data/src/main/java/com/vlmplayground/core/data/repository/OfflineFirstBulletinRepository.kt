@@ -3,6 +3,7 @@ package com.vlmplayground.core.data.repository
 import com.vlmplayground.core.data.model.asEntity
 import com.vlmplayground.core.data.util.suspendRunCatching
 import com.vlmplayground.core.database.dao.BulletinBoardDao
+import com.vlmplayground.core.model.data.Bulletin
 import com.vlmplayground.core.network.firebase.FirebaseNetworkDataSource
 import com.vlmplayground.core.network.model.asDataModel
 import kotlinx.coroutines.Dispatchers
@@ -26,18 +27,10 @@ class OfflineFirstBulletinRepository @Inject constructor(
             })
         }
 
-
-
-
-//    override fun getBulletinStream(): Flow<List<Bulletin>> =
-//
-////        bulletinBoardDao.getAllEntityStream().map { it.map(BulletinEntity::asExternalModel) }
-//    firebaseNetworkDataSource.getBulletin().map { it.asExternalModel() }
-////    override suspend fun syncWith(synchronizer: Synchronizer): Boolean =
-////        synchronizer.changeListSync(
-////
-////      )
-
+    override suspend fun uploadToBulletinBoard(newBulletin : Bulletin) {
+        val f = bulletinBoardDao.insertOrIgnoreBulletin(newBulletin.asEntity())
+        val fff = 1
+    }
 }
 
 

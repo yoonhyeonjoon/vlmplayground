@@ -110,11 +110,16 @@ class TestBulletinBoardDao : BulletinBoardDao{
         throw NotImplementedError("Unused in tests")
     }
 
-    override suspend fun insertOrIgnoreBulletin(bulletinEntities: List<BulletinEntity>): List<Long> {
+    override suspend fun insertOrIgnoreBulletins(bulletinEntities: List<BulletinEntity>): List<Long> {
         val originalValue = entitiesStateFlow.value
         originalValue.toMutableList().addAll(bulletinEntities)
         entitiesStateFlow.value = originalValue
         return originalValue.map{ 1 } //always True set
+    }
+
+
+    override suspend fun insertOrIgnoreBulletin(bulletinEntity: BulletinEntity): Long {
+        throw NotImplementedError("Unused in tests")
     }
 
     override suspend fun updateBulletin(entities: List<BulletinEntity>) {

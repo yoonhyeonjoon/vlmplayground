@@ -10,7 +10,7 @@ android {
     namespace = "com.vlmplayground.android.core.data"
 
     defaultConfig {
-        testInstrumentationRunner = "com.vlmplayground.core.data.CustomTestRunner"
+        testInstrumentationRunner = "com.vlmplayground.android.core.testing.VlmTestRunner"
     }
 
 }
@@ -21,8 +21,7 @@ dependencies {
     implementation(project(":core:database"))
 //    implementation(project(":core:datastore"))
     implementation(project(":core:network"))
-    testImplementation(project(":core:testing"))
-    testImplementation(project(":core:datastore-test"))
+
 
     implementation(libs.androidx.core.ktx)
 
@@ -31,8 +30,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
 
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.firestore)
-    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
-    androidTestImplementation("com.android.support.test:runner:1.0.2")
+    androidTestImplementation(project(":core:testing"))
+    testImplementation(project(":core:testing"))
+    testImplementation(project(":core:datastore-test"))
+
 }

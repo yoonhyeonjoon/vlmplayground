@@ -10,6 +10,5 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object DaosModule {
     @Provides
-    fun provideBulletinDao(database : VlmDatabase) : BulletinBoardDao
-    = database.bulletinDao()
+    fun provideBulletinDao(database : VlmDatabase) : BulletinBoardDao = database.bulletinDao()
 }

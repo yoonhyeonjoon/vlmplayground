@@ -1,28 +1,28 @@
 package com.vlmplayground.core.network
 
-import android.support.test.InstrumentationRegistry
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.vlmplayground.core.network.firebase.FirebaseNetworkDataSource
 import com.vlmplayground.core.network.model.NetworkBulletin
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.test.runTest
-import okhttp3.internal.wait
 import org.junit.Test
 import kotlin.test.assertTrue
 
 
 class VlmNetworkTest {
 
-
     //Firestore approaching
     @Test
     fun testFirebaseFirestore() = runTest {
-        val instrumentationContext = InstrumentationRegistry.getTargetContext()
-        val firebaseApp: FirebaseApp = FirebaseApp.initializeApp(instrumentationContext)!!
+//        val instrumentationContext = InstrumentationRegistry.getTargetContext()
+//        val firebaseApp: FirebaseApp = FirebaseApp.initializeApp(instrumentationContext)!!
         var aDocument = Firebase.firestore.collection("bulletinBoard").limit(1).get().addOnSuccessListener {
             it.documents
         }.await()
@@ -39,15 +39,19 @@ class VlmNetworkTest {
 
         runBlocking {
 
-            val dataSourceJob: Job =
-                launch {  dataSource.getBulletinByTimestamp(0).collect {
-                        getResult = it
-                    }
-                }
-            launch {
-                delay(5000L)
-                dataSourceJob.cancel()
-            }
+            val gg: List<NetworkBulletin> = dataSource.getBulletinByTimestamp(1507593600L*3).first()
+
+//            val dataSourceJob: Job =
+//                launch {  dataSource.getBulletinByTimestamp(1507593600L*3)
+//
+//                    .collect {
+//                        getResult = it
+//                    }
+//                }
+//            launch {
+//                delay(5000L)
+//                dataSourceJob.cancel()
+//            }
         }
 
 

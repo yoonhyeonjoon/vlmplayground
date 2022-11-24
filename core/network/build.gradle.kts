@@ -1,18 +1,3 @@
-/*
- * Copyright 2022 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
 plugins {
     id("vlmplayground.android.library")
@@ -20,7 +5,6 @@ plugins {
     id("vlmplayground.android.hilt")
     id("kotlinx-serialization")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
-
     id("com.google.gms.google-services")
 }
 
@@ -33,7 +17,7 @@ android {
         unitTests.isReturnDefaultValues = true
     }
     defaultConfig {
-        testInstrumentationRunner = "com.vlmplayground.core.network.CustomTestRunner"
+        testInstrumentationRunner = "com.vlmplayground.android.core.testing.VlmTestRunner"
     }
 
     namespace = "com.vlmplayground.core.network"
@@ -48,6 +32,7 @@ dependencies {
     implementation(project(":core:model"))
 
     testImplementation(project(":core:testing"))
+    androidTestImplementation(project(":core:testing"))
 
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.serialization.json)
@@ -60,27 +45,6 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.firestore)
 
-    androidTestImplementation("com.android.support.test:runner:1.0.2")
-    androidTestImplementation("com.android.support.test:rules:1.0.2")
-    androidTestImplementation("com.android.support.test.espresso:espresso-core:3.0.2")
-
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("androidx.test:core:1.5.0")
-    testImplementation("org.mockito:mockito-core:3.4.6")
-    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
-    androidTestImplementation("org.mockito:mockito-android:2.24.5")
-
     androidTestImplementation(libs.androidx.work.testing)
-
-//    //For hiltTest
-//    testImplementation(libs.hilt.android.testing) // For Robolectric tests.
-//    kaptTest(libs.hilt.android.compiler) // ...with Kotlin.
-//    testAnnotationProcessor(libs.hilt.android.compiler) // ...with Java.
-//    androidTestImplementation(libs.hilt.android.testing) // For instrumented tests.
-//    kaptAndroidTest(libs.hilt.android.testing) // ...with Kotlin.
-//    androidTestAnnotationProcessor(libs.hilt.android.testing) // ...with Java.
-
-
-
 
 }

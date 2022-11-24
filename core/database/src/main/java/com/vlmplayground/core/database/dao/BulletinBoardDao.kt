@@ -23,7 +23,10 @@ interface BulletinBoardDao {
     suspend fun deleteAllEntityStream()
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertOrIgnoreBulletin(bulletinEntities: List<BulletinEntity>): List<Long>
+    suspend fun insertOrIgnoreBulletin(bulletinEntity : BulletinEntity): Long
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertOrIgnoreBulletins(bulletinEntities: List<BulletinEntity>): List<Long>
 
     @Update
     suspend fun updateBulletin(entities: List<BulletinEntity>)
