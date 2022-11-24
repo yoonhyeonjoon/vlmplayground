@@ -28,8 +28,7 @@ class OfflineFirstBulletinRepository @Inject constructor(
         }
 
     override suspend fun uploadToBulletinBoard(newBulletin : Bulletin) {
-        val f = bulletinBoardDao.insertOrIgnoreBulletin(newBulletin.asEntity())
-        val fff = 1
+        bulletinBoardDao.insertOrIgnoreBulletin(newBulletin.asEntity())
     }
 }
 

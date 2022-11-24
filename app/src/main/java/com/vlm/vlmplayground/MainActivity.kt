@@ -10,7 +10,9 @@ import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import com.vlmplayground.core.feature.bulletin.BulletinViewModel
+import com.vlmplayground.core.model.data.Bulletin
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 //@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @OptIn(ExperimentalLifecycleComposeApi::class)
@@ -96,6 +98,18 @@ fun BulletinCompose(
 
 //    LaunchedEffect(true){
     viewModel.bulletinBoardInitializing()
+
+    viewModel.bulletinUploading(
+        Bulletin(
+            fid = "vUwh0CY4mwecal2n8BR",
+            images = listOf<String>("images/011.jpg", "images/012.jpg", "images/013.jpg"),
+            date = Date(),
+            score = 131,
+            name = "CheckFor2",
+            text = "이것이야말로 넣는 다.",
+            title = "아침이 계십니다. 책상을 남은 이름을 말 이국 봅니다."
+        )
+    )
 //        viewModel.bulletinBoardInitializing()
 //        bulletinState.collect{ list ->
 //            println("printed by bulletin : $list")

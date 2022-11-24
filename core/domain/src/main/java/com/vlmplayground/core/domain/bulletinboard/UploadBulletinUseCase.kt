@@ -10,5 +10,7 @@ constructor(
     private val bulletinRepository : BulletinRepository
 )
 {
-    operator fun invoke(newBulletin : Bulletin) = bulletinRepository.uploadToBulletinBoard(newBulletin)
+    suspend operator fun invoke(newBulletin : Bulletin) {
+        bulletinRepository.uploadToBulletinBoard(newBulletin)
+    }
 }
