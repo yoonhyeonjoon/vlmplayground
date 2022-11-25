@@ -9,6 +9,7 @@ import com.vlmplayground.core.database.model.BulletinEntity
 import com.vlmplayground.core.database.model.asDataModel
 import com.vlmplayground.core.network.firebase.FirebaseNetworkDataSource
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
@@ -46,14 +47,10 @@ class VlmDataTest {
         runBlocking {
             val bulletinRepositoryJob = launch {
                 //Asynchronous call
-                bulletinRepository.syncBulletinBoard().collect { }
-            }
-            launch {
-                delay(5000L)
+                bulletinRepository.syncBulletinBoard().first()
                 bulletinEntity = bulletinBoardDao.entitiesStateFlow.value
-                bulletinRepositoryJob.cancel()
 
-                if (bulletinEntity != null) {
+                if (bulletinEntity?.isNotEmpty() == true) {
                     assertTrue(true)
                 } else {
                     assertTrue(false)

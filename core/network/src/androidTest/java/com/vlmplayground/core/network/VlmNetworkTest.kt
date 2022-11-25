@@ -23,7 +23,7 @@ class VlmNetworkTest {
     fun testFirebaseFirestore() = runTest {
 //        val instrumentationContext = InstrumentationRegistry.getTargetContext()
 //        val firebaseApp: FirebaseApp = FirebaseApp.initializeApp(instrumentationContext)!!
-        var aDocument = Firebase.firestore.collection("bulletinBoard").limit(1).get().addOnSuccessListener {
+        val aDocument = Firebase.firestore.collection("bulletinBoard").limit(1).get().addOnSuccessListener {
             it.documents
         }.await()
 

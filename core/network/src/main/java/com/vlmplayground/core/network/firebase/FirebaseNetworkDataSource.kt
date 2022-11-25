@@ -10,6 +10,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.tasks.await
 import java.util.*
 import javax.inject.Inject
 
@@ -54,42 +55,69 @@ class FirebaseNetworkDataSource @Inject constructor(private val firebase : Fireb
             }
     }
 
+    override fun insertOrIgnoreBulletins(entities: List<NetworkBulletin>): Boolean {
 
-//    override fun getBulletinByTimestamp(currentPoint: Date): Flow<NetworkBulletin>  = callbackFlow {
-//        TODO("Not yet implemented")
-////        var eventsCollection: CollectionReference? = null
-////        try {
-////            eventsCollection = firebase.collection("bulletinBoard")
-////        } catch (e: Throwable) {
-////            close(e)
-////        }
-////
-////
-////        val subscription = eventsCollection?.whereLessThan("date", Date(currentPoint.time + 432000_000))?.addSnapshotListener { snapshot, _ ->
-////            if (snapshot == null) {
-////                return@addSnapshotListener
-////            }
-////            try {
-////                for (i in snapshot.documentChanges) {
-////                    if (i.type == DocumentChange.Type.ADDED) {
-////                        trySend(i.document.toObject(NetworkBulletin::class.java)).isSuccess
-////                    }
-////                }
-////            } catch (e: Throwable) {
-////                val a = 0
-////            }
-////        }
-////        awaitClose {
-////            subscription?.remove()
-////        }
-//    }
+        var eventsCollection: CollectionReference? = null
+        try
+        {
+            eventsCollection = firebase.collection("bulletinBoard")
+        }
+        catch (e: Throwable)
+        {
+            return false
+        }
 
+//        suspend fun insertFBRoomDataToMyCol(
+//            userId : String,
+//            networkRoomData: NetworkRoomData,
+//            roomFid: String,
+//            success : (Boolean) -> Unit
+//        ){
+//            val col = userCol.document(userId).collection("room").document(roomFid)
+//            col.set(networkRoomData).addOnSuccessListener {
+//                success(true)
+//            }.addOnFailureListener{
+//                success(false)
+//            }.await()
+//
+//        }
+//
+        firebase.runBatch{ batch ->
+            entities.subList(0,499).forEach { aEntry -> //the reason why under 500, because of firestore limitation
+                batch.set(aEntry.fid, eventsCollection)
+            }
+        }
+
+
+        eventsCollection.document()
+        eventsCollection.ad
+        val subscription = eventsCollection
+            ?.whereGreaterThan("date", Date(Date().time - movePoint))
+            ?.addSnapshotListener { snapshot, _ ->
+                if (snapshot == null) { return@addSnapshotListener }
+                try {
+                    val bulletinList = mutableListOf<NetworkBulletin>()
+                    for (i in snapshot.documentChanges) {
+                        if (i.type == DocumentChange.Type.ADDED || i.type == DocumentChange.Type.MODIFIED || i.type == DocumentChange.Type.REMOVED) {
+                            bulletinList.add(i.document.toObject(NetworkBulletin::class.java))
+                        }
+                    }
+                    trySend(bulletinList.toList()).isSuccess
+                    bulletinList.clear()
+                }
+                catch (e: Throwable)
+                {
+                    println(e.toString())
+                }
+            }
+
+
+    }
 
     override fun deleteBulletin(fid: String) {
         TODO("Not yet implemented")
     }
 
-    override fun insertOrIgnoreBulletin(entities: NetworkBulletin): Long {
-        TODO("Not yet implemented")
-    }
+
+
 }

@@ -13,7 +13,7 @@ interface VlmPlaygroundDataSource {
 
     fun deleteBulletin(fid : String)
 
-    fun insertOrIgnoreBulletin(entities: NetworkBulletin): Long
+    fun insertOrIgnoreBulletins(entities: List<NetworkBulletin>): Boolean
 
 
 }

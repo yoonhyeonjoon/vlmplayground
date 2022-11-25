@@ -66,9 +66,7 @@ class BulletinBoardDaoTest {
             )
         )
 
-        bulletinBoardDao.insertOrIgnoreBulletins(
-            bulletinList
-        )
+        bulletinBoardDao.insertOrIgnoreBulletins(bulletinList)
 
         bulletinBoardDao.insertOrIgnoreBulletin(BulletinEntity(
             fid = "testableInsertingSet3",
