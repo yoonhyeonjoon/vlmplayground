@@ -55,7 +55,7 @@ class FirebaseNetworkDataSource @Inject constructor(private val firebase : Fireb
             }
     }
 
-    override fun insertOrIgnoreBulletins(entities: List<NetworkBulletin>): Boolean {
+    override fun insertOrIgnoreBulletins(entities: List<NetworkBulletin>, response : (Boolean) -> Unit) {
 
         var eventsCollection: CollectionReference? = null
         try
@@ -64,53 +64,17 @@ class FirebaseNetworkDataSource @Inject constructor(private val firebase : Fireb
         }
         catch (e: Throwable)
         {
-            return false
+            response(false)
         }
 
-//        suspend fun insertFBRoomDataToMyCol(
-//            userId : String,
-//            networkRoomData: NetworkRoomData,
-//            roomFid: String,
-//            success : (Boolean) -> Unit
-//        ){
-//            val col = userCol.document(userId).collection("room").document(roomFid)
-//            col.set(networkRoomData).addOnSuccessListener {
-//                success(true)
-//            }.addOnFailureListener{
-//                success(false)
-//            }.await()
-//
-//        }
-//
         firebase.runBatch{ batch ->
             entities.subList(0,499).forEach { aEntry -> //the reason why under 500, because of firestore limitation
-                batch.set(aEntry.fid, eventsCollection)
+                val documentPath = eventsCollection?.document(aEntry.fid)
+                documentPath?.let { batch.set(it, aEntry) }
             }
+        }.addOnCompleteListener { batchResponse ->
+            response(batchResponse.isSuccessful)
         }
-
-
-        eventsCollection.document()
-        eventsCollection.ad
-        val subscription = eventsCollection
-            ?.whereGreaterThan("date", Date(Date().time - movePoint))
-            ?.addSnapshotListener { snapshot, _ ->
-                if (snapshot == null) { return@addSnapshotListener }
-                try {
-                    val bulletinList = mutableListOf<NetworkBulletin>()
-                    for (i in snapshot.documentChanges) {
-                        if (i.type == DocumentChange.Type.ADDED || i.type == DocumentChange.Type.MODIFIED || i.type == DocumentChange.Type.REMOVED) {
-                            bulletinList.add(i.document.toObject(NetworkBulletin::class.java))
-                        }
-                    }
-                    trySend(bulletinList.toList()).isSuccess
-                    bulletinList.clear()
-                }
-                catch (e: Throwable)
-                {
-                    println(e.toString())
-                }
-            }
-
 
     }
 
