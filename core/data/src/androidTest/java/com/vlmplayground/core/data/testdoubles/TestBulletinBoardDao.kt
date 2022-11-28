@@ -149,5 +149,7 @@ class TestBulletinBoardDao : BulletinBoardDao{
         entitiesStateFlow.value = originalValue
     }
 
-
+    override fun getUnsyncedBulletin(): Flow<List<BulletinEntity>> {
+        TODO("Not yet implemented")
+    }
 }

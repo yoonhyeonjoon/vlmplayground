@@ -12,6 +12,8 @@ data class Bulletin(
     var title: String
 )
 
+
+
 val previewBulletins = listOf(
     Bulletin(
         fid = "1vUwh0CY4mwecal2n8BR",

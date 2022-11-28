@@ -24,4 +24,15 @@ fun NetworkBulletin.asDataModel() = Bulletin(
      title = title
 )
 
+fun Bulletin.asNetworkBulletin() = NetworkBulletin(
+    fid = fid,
+    images = images,
+    date = date,
+    score = score,
+    name = name,
+    text = text,
+    title = title,
+)
+
+
 

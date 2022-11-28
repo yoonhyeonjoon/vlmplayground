@@ -40,7 +40,7 @@ class VlmNetworkTest {
         runBlocking {
 
             val gg: List<NetworkBulletin> = dataSource.getBulletinByTimestamp(1507593600L*3).first()
-//            dataSource.insertOrIgnoreBulletins()
+
 //            val dataSourceJob: Job =
 //                launch {  dataSource.getBulletinByTimestamp(1507593600L*3)
 //
@@ -52,23 +52,8 @@ class VlmNetworkTest {
 //                delay(5000L)
 //                dataSourceJob.cancel()
 //            }
+//            dataSource.insertOrIgnoreBulletins(entities: List<NetworkBulletin>, response : (Boolean) -> Unit)
         }
-
-
-    }
-
-    @Test
-    fun testFirebaseNetworkDataSource() = runTest {
-        val dataSource = FirebaseNetworkDataSource(Firebase.firestore)
-        var getResult = listOf<NetworkBulletin>()
-
-        runBlocking {
-
-            val gg: List<NetworkBulletin> = dataSource.getBulletinByTimestamp(1507593600L*3).first()
-
-        }
-
-
     }
 
 

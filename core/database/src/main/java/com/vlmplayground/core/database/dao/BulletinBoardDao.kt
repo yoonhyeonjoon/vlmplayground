@@ -34,4 +34,13 @@ interface BulletinBoardDao {
     @Upsert
     suspend fun upsertBulletin(entities: List<BulletinEntity>)
 
+    @Query(
+        value = """
+            Select * From bulletinboard where synced = false
+        """
+    )
+    fun getUnsyncedBulletin():Flow<List<BulletinEntity>>
+
+
+
 }

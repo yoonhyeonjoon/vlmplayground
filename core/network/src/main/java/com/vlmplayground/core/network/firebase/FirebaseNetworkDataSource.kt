@@ -55,8 +55,11 @@ class FirebaseNetworkDataSource @Inject constructor(private val firebase : Fireb
             }
     }
 
-    override fun insertOrIgnoreBulletins(entities: List<NetworkBulletin>, response : (Boolean) -> Unit) {
 
+    //this method should be only called when the time
+    override suspend fun insertOrIgnoreBulletins(entities: List<NetworkBulletin>) : Boolean {
+
+        var result = false
         var eventsCollection: CollectionReference? = null
         try
         {
@@ -64,18 +67,27 @@ class FirebaseNetworkDataSource @Inject constructor(private val firebase : Fireb
         }
         catch (e: Throwable)
         {
-            response(false)
+            return result
         }
 
         firebase.runBatch{ batch ->
-            entities.subList(0,499).forEach { aEntry -> //the reason why under 500, because of firestore limitation
-                val documentPath = eventsCollection?.document(aEntry.fid)
-                documentPath?.let { batch.set(it, aEntry) }
+            val ff =
+            if(entities.size > 500) {
+                entities.subList(0,499)
+            }
+            else {
+                entities
+            }
+
+                .forEach { aEntry -> //the reason why under 500, because of firestore limitation
+                val documentPath = eventsCollection.document(aEntry.fid)
+                documentPath.let { batch.set(it, aEntry) }
             }
         }.addOnCompleteListener { batchResponse ->
-            response(batchResponse.isSuccessful)
-        }
+            result = batchResponse.isSuccessful
+        }.await()
 
+        return result
     }
 
     override fun deleteBulletin(fid: String) {

@@ -4,6 +4,7 @@ plugins {
     id("vlmplayground.android.library.jacoco")
     id("vlmplayground.android.hilt")
     id("kotlinx-serialization")
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -31,7 +32,7 @@ dependencies {
 
 
     androidTestImplementation(project(":core:testing"))
-    testImplementation(project(":core:testing"))
-    testImplementation(project(":core:datastore-test"))
-
+    androidTestImplementation(libs.room.runtime)
+    androidTestImplementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 }

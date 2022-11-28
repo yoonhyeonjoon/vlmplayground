@@ -13,3 +13,4 @@ fun Bulletin.asEntity() = BulletinEntity(
     text = text,
     title = title,
 )
+

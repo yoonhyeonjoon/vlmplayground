@@ -42,7 +42,8 @@ data class BulletinEntity(
     @ColumnInfo(defaultValue = "")
     val text : String,
     @ColumnInfo(defaultValue = "")
-    val title : String
+    val title : String,
+    var synced : Boolean = false
 )
 
 
