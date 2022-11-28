@@ -11,6 +11,6 @@ constructor(
 )
 {
     suspend operator fun invoke(newBulletin : Bulletin) {
-        bulletinRepository.uploadToBulletinBoard(newBulletin)
+        bulletinRepository.uploadBulletin(newBulletin)
     }
 }

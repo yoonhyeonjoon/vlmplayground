@@ -41,6 +41,14 @@ interface BulletinBoardDao {
     )
     fun getUnsyncedBulletin():Flow<List<BulletinEntity>>
 
-
+    @Query(
+        value = """
+            DELETE FROM bulletinboard 
+            Where synced = false
+            And requestoption = "delete"
+            And fid in (:fid)
+        """
+    )
+    suspend fun deleteBulletins(fid: List<String>)
 
 }

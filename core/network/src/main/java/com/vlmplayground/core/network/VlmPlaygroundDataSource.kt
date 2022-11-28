@@ -11,8 +11,8 @@ interface VlmPlaygroundDataSource {
     //movePoint 432000_000로 설정한다면, 밀리세컨드로해서 -5일전까지부터의 데이터를 쿼링해옴
     fun getBulletinByTimestamp(movePoint: Long = 0L): Flow<List<NetworkBulletin>>
 
-    fun deleteBulletin(fid : String)
-
     suspend fun insertOrIgnoreBulletins(entities: List<NetworkBulletin>) : Boolean
+
+    suspend fun deleteBulletins(entities: List<NetworkBulletin>): Boolean
 
 }

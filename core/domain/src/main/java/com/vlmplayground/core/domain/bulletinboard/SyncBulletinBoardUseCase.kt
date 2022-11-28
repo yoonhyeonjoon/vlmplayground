@@ -9,5 +9,5 @@ constructor(
     private val bulletinRepository : BulletinRepository
 )
 {
-    operator fun invoke() = bulletinRepository.syncBulletinBoard()
+    operator fun invoke() = bulletinRepository.syncBulletinBoardtoLocal()
 }

@@ -152,4 +152,8 @@ class TestBulletinBoardDao : BulletinBoardDao{
     override fun getUnsyncedBulletin(): Flow<List<BulletinEntity>> {
         TODO("Not yet implemented")
     }
+
+    override suspend fun deleteBulletins(fid: List<String>) {
+        TODO("Not yet implemented")
+    }
 }

@@ -47,7 +47,7 @@ class FakeDBtest {
         runBlocking {
             val bulletinRepositoryJob = launch {
                 //Asynchronous call
-                bulletinRepository.syncBulletinBoard().first()
+                bulletinRepository.syncBulletinBoardtoLocal().first()
                 bulletinEntity = bulletinBoardDao.entitiesStateFlow.value
 
                 if (bulletinEntity?.isNotEmpty() == true) {
@@ -73,7 +73,7 @@ class FakeDBtest {
 
         runBlocking {
 
-            bulletinRepository.uploadToBulletinBoard(
+            bulletinRepository.uploadBulletin(
                 BulletinEntity(
                     fid = "ztxZB1Cwc55GyRrUOYrJn",
                     images = "images/001.jpg,images/002.jpg,images/003.jpg",
@@ -87,7 +87,7 @@ class FakeDBtest {
 
             val bulletinRepositoryJob = launch {
                 //Asynchronous call
-                bulletinRepository.uploadToBulletinBoard(
+                bulletinRepository.uploadBulletin(
                     BulletinEntity(
                         fid = "ztxZB1Cwc55GyRrUOYrJn",
                         images = "images/001.jpg,images/002.jpg,images/003.jpg",

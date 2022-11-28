@@ -91,13 +91,6 @@ class BulletinBoardDaoTest {
         val getEntry = bulletinBoardDao.getAllEntityStream().first()
 
 
-//        assertEquals(
-//            listOf(3L, 2L, 1L, 0L),
-//            savedNewsResourceEntities.map {
-//                it.asExternalModel().publishDate.toEpochMilliseconds()
-//            }
-//        )
-
     }
 
 

@@ -5,11 +5,9 @@ import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.vlmplayground.core.network.VlmPlaygroundDataSource
 import com.vlmplayground.core.network.model.NetworkBulletin
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
 import java.util.*
 import javax.inject.Inject
@@ -71,15 +69,13 @@ class FirebaseNetworkDataSource @Inject constructor(private val firebase : Fireb
         }
 
         firebase.runBatch{ batch ->
-            val ff =
-            if(entities.size > 500) {
-                entities.subList(0,499)
+            if(entities.size > 500) { //firebase runbatch is only allowed until size 500
+                entities.subList(0,500)
             }
             else {
                 entities
             }
-
-                .forEach { aEntry -> //the reason why under 500, because of firestore limitation
+            .forEach { aEntry -> //the reason why under 500, because of firestore limitation
                 val documentPath = eventsCollection.document(aEntry.fid)
                 documentPath.let { batch.set(it, aEntry) }
             }
@@ -90,10 +86,34 @@ class FirebaseNetworkDataSource @Inject constructor(private val firebase : Fireb
         return result
     }
 
-    override fun deleteBulletin(fid: String) {
-        TODO("Not yet implemented")
+    override suspend fun deleteBulletins(entities: List<NetworkBulletin>): Boolean {
+
+        var result = false
+        var eventsCollection: CollectionReference? = null
+        try
+        {
+            eventsCollection = firebase.collection("bulletinBoard")
+        }
+        catch (e: Throwable)
+        {
+            return result
+        }
+
+        firebase.runBatch{ batch ->
+            if(entities.size > 500) { //firebase runbatch is only allowed until size 500
+                entities.subList(0,500)
+            }
+            else {
+                entities
+            }
+            .forEach { aEntry -> //the reason why under 500, because of firestore limitation
+                val documentPath = eventsCollection.document(aEntry.fid)
+                documentPath.let { batch.delete(it) }
+            }
+        }.addOnCompleteListener { batchResponse ->
+            result = batchResponse.isSuccessful
+        }.await()
+
+        return result
     }
-
-
-
 }

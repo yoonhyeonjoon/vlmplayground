@@ -43,7 +43,10 @@ data class BulletinEntity(
     val text : String,
     @ColumnInfo(defaultValue = "")
     val title : String,
-    var synced : Boolean = false
+    var synced : Boolean = false,
+    @ColumnInfo(defaultValue = "dry")
+    var requestoption : String = "dry" // 1. "dry" = nothing cnofirmed, 2. "delete", 3. "upload" => upload 옵션은 basically modified set option for firebase를 의미 함
+
 )
 
 

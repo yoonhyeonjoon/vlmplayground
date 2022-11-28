@@ -34,7 +34,7 @@ dependencies {
 //    implementation(project(":core:datastore"))
     implementation(project(":core:network"))
     testImplementation(project(":core:testing"))
-    testImplementation(project(":core:datastore-test"))
+//    testImplementation(project(":core:datastore-test"))
 
     implementation(libs.androidx.core.ktx)
 
